@@ -1,14 +1,19 @@
-#include "Game.hh"
-#include "Constants.hh"
-#include "Rectangle.hh"
-#include "InputSystem.hh"
-#include <iostream>
+#include "CommonHeaders.hh"
+#include "Player.hh"
 
-Rectangle* rectangle{new Rectangle(100, 100, 300, 100, sf::Color::Red)};
+//Rectangle* rectangle{new Rectangle(100, 100, 200, 100, sf::Color::Red)};
+
+//Physics Init
+b2Vec2* gravity{new b2Vec2(0.f, 0.f)};
+b2World* world{new b2World(*gravity)};
+
+TextObject* textObj1{new TextObject(ASSETS_FONT_ARCADECLASSIC, 14, sf::Color::White, sf::Text::Bold)};
+
 sf::Clock* gameClock{new sf::Clock()};
 float deltaTime{};
-sf::Texture* texture1{new sf::Texture()};
-sf::Sprite* sprite1{new sf::Sprite()};
+Player* player1{new Player(ASSETS_SPRITES, 4.f, 16, 16, 0, 5, 100, 25, 200.f)};
+Animation* idleAnimation{new Animation()};
+Animation* runAnimation{new Animation()};
 
 Game::Game()
 {
@@ -23,13 +28,9 @@ Game::~Game()
 //Starting things
 void Game::Start()
 {
-  texture1->loadFromFile("../assets/sprites.png");
-  if(texture1 != nullptr) std::cout << "Ok";
-  sprite1->setTexture(*texture1);
-  sprite1->setTextureRect(sf::IntRect(0 * 16, 5 * 16, 16, 16));
-  sprite1->setPosition(100, 25);
-  sprite1->setColor(sf::Color::White);
-  sprite1->setScale(4.f, 4.f);
+  textObj1->SetTextStr("Hello game engine");
+  idleAnimation = new Animation(player1->GetSprite(), 0, 5, 0.05f, 5);
+  runAnimation = new Animation(player1->GetSprite(), 0, 5, 0.08f, 6);
 }
 
 void Game::Initialize()
@@ -38,11 +39,26 @@ void Game::Initialize()
   MainLoop();
 }
 
+void Game::UpdatePhysics()
+{
+  world->ClearForces();
+  world->Step(1.f/100 * deltaTime, 8, 8);
+}
+
 //Logic, animations, etc
 void Game::Update()
 {
   deltaTime = gameClock->getElapsedTime().asSeconds();
   gameClock->restart();
+
+  if(std::abs(InputSystem::Axis().x) > 0 || std::abs(InputSystem::Axis().y))
+  {
+    runAnimation->Play(deltaTime);
+  }
+  else
+  {
+    idleAnimation->Play(deltaTime);
+  }
 }
 
 void Game::MainLoop()
@@ -56,6 +72,8 @@ void Game::MainLoop()
         window->close();
       }
     }
+
+    UpdatePhysics();
     Input();
     Update();
     Render();
@@ -73,15 +91,14 @@ void Game::Render()
 //Drawing sprites or geometry.
 void Game::Draw()
 {
-  window->draw(*rectangle->GetShape());
-  window->draw(*sprite1);
+  window->draw(*player1->GetSprite());
+  window->draw(*textObj1->GetText());
 }
 
 //Keyboard, joysticks, etc.
 void Game::Input()
 {
-  rectangle->GetShape()->move(sf::Vector2f(InputSystem::Axis().x * deltaTime * 1000.f,
-  InputSystem::Axis().y * deltaTime * 1000.f));
+  player1->Move(deltaTime);
 }
 
 void Game::Destroy()
