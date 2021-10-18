@@ -53,3 +53,8 @@ void GameObject::Input()
 {
 
 }
+
+sf::Sprite* GameObject::GetSprite() const
+{
+  return sprite;
+}

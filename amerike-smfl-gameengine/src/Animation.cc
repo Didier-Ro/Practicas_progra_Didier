@@ -9,6 +9,7 @@ Animation::Animation(sf::Sprite* sprite, int startFrame, int endFrame, float ani
   this->endFrame = endFrame;
   this->animationDelay = animationDelay;
   this->currentAnimation = currentAnimation;
+  animationIndex = startFrame;
 }
 
 void Animation::Play(float& deltaTime)

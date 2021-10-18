@@ -26,6 +26,8 @@ public:
     virtual void Update(float& deltaTime);
     virtual void Draw();
     virtual void Input();
+    
+    sf::Sprite* GetSprite() const;
 };
 
 
