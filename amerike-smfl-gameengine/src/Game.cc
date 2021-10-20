@@ -47,7 +47,7 @@ Game::Game()
   AddGameObject(chest1);
   AddGameObject(candle);
 
-  tileGroup = new TileGroup(window, 10, 10, ASSETS_MAPS);
+  tileGroup = new TileGroup(window, 10, 10, ASSETS_MAPS, 4.f, 16, 16, ASSETS_TILES);
   ligthIdle = new Animation(candle->GetSprite(), 6, 11, 0.1f, 3);
 }
 
