@@ -62,3 +62,13 @@ sf::Sprite* GameObject::GetSprite() const
 {
   return sprite;
 }
+
+const char* GameObject::GetTagName() const
+{
+  return tagName;
+}
+
+void GameObject::SetTagName(const char* tagName)
+{
+  this->tagName = tagName;
+}

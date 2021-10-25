@@ -17,6 +17,7 @@ protected:
   Rigidbody* rigidbody{};
   b2World* world{};
   sf::RenderWindow* window;
+  const char* tagName{};
 public:
     GameObject(std::string textureUrl, float scale, int width, int height, int column, int row, 
     float posX, float posY,b2BodyType bodyType,b2World*& world, sf::RenderWindow*& window);
@@ -28,6 +29,9 @@ public:
     virtual void Input();
     
     sf::Sprite* GetSprite() const;
+
+    const char* GetTagName() const;
+    void SetTagName(const char* tagName);
 };
 
 

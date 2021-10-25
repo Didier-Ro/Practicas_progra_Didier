@@ -1,4 +1,3 @@
-
 #include "CommonHeaders.hh"
 #include "Player.hh"
 #include "Animation.hh"
@@ -43,11 +42,11 @@ Game::Game()
   event = new sf::Event();
   drawPhysics = new DrawPhysics(window);
 
-  player1 = new Player(ASSETS_SPRITES, 4.f, 16, 16, 0, 5, 100, 25, 200.f, b2BodyType::b2_dynamicBody, world, window);
+  player1 = new Player(ASSETS_SPRITES, 4.f, 16, 16, 0, 5, 500, 300, 200.f, b2BodyType::b2_dynamicBody, world, window);
   chest1 = new GameObject(ASSETS_SPRITES, 4.f, 16, 16, 6, 1, 300, 500, b2BodyType::b2_staticBody, world, window);
   light1 = new GameObject(ASSETS_SPRITES, 4.f, 16, 16, 6, 3, 500, 500, b2BodyType::b2_staticBody, world, window);
 
-  tileGroup = new TileGroup(window, 10, 10, ASSETS_MAPS, 4.f, 16, 16, ASSETS_TILES);
+  tileGroup = new TileGroup(window, 12, 12, ASSETS_MAPS, 4.f, 16, 16, ASSETS_TILES);
 
   //tile1 = new Tile("../assets/tiles.png", 4.f, 16, 16, 0, 2, 0, 0, window);
 
