@@ -26,7 +26,7 @@ float posX, float posY, b2BodyType bodyType, b2World*& world, sf::RenderWindow*&
   rigidbody = new Rigidbody(world, bodyType,
   new b2Vec2(sprite->getPosition().x, sprite->getPosition().y),
   width * scale, height * scale, 1, 0, 0, new b2Vec2(sprite->getOrigin().x, sprite->getOrigin().y),
-  0.f);
+  0.f, (void*) this);
 
   sprite->setOrigin(width / 2, height / 2);
 
@@ -35,7 +35,7 @@ float posX, float posY, b2BodyType bodyType, b2World*& world, sf::RenderWindow*&
 
 GameObject::~GameObject()
 {
-
+  delete rigidbody;
 }
 
 void GameObject::Start()
@@ -63,12 +63,12 @@ sf::Sprite* GameObject::GetSprite() const
   return sprite;
 }
 
-const char* GameObject::GetTagName() const
+std::string GameObject::GetTagName() const
 {
   return tagName;
 }
 
-void GameObject::SetTagName(const char* tagName)
+void GameObject::SetTagName(std::string tagName)
 {
   this->tagName = tagName;
 }
