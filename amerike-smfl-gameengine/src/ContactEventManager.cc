@@ -9,6 +9,7 @@ ContactEventManager::ContactEventManager(std::vector<GameObject*>*& gameObjects)
 
 ContactEventManager::~ContactEventManager()
 {
+  
 }
 
 void ContactEventManager::BeginContact(b2Contact* contact)
