@@ -1,5 +1,7 @@
 #include<iostream>
 #include "CreateGameObject.hh"
+#include "CreateAnimation.hh"
+#include "CreateTileGroup.hh"
 
 int main(int argc, char** argv)
 {
@@ -12,7 +14,17 @@ int main(int argc, char** argv)
     {
       CreateGameObject(argv[2]);
     }
+    if(action == "createtilegroup")
+    {
+      CreateTileGroup(argv[2]);
+    }
     break;
+  case 7:
+    if(action == "createanimation")
+    {
+      CreateAnimation(argv);
+    }
+  break;
   default:
     break;
   }
